@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title></title>
+</head>
+
+<body>
+
+<div style="width: 100%; height: 600px;" id="faktory"></div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
+
+<script type="text/javascript">
+
+var faktory = ["Návštěva oddělení pro pacienty s horečkou", "Chronická nemoc","Jídlo mimo domov: víckrát týdně","Taxi: víckrát týdně","Jídlo mimo domov: jednou týdně","Návštěva farmářského trhu","Domácí zvíře","Nošení masky: někdy","Nošení masky: vždy","Taxi: jednou týdně"];
+
+var data = [12.7,4.8,3.1,3.0,1.6,0.4,0.4,0.4,0.3,0.2];
+
+var colors = ['#b80058','#ebac23','#008cf9','#006e00','#00bbad','#d163e6','#b24502','#ff9287', '#5954d6', '#00c6f8', '#878500', '#00a76c', '#bdbdbd'];
+
+Highcharts.chart('faktory', {
+    chart: {
+        type: 'bar'
+    },
+
+    title: {
+        text: 'Jaké faktory zvyšovaly pravděpodobnost nakažení SARS?'
+    },
+
+    subtitle: {
+        text: 'Kolikrát častěji jsou spojené s nemocnými než se zdravými?<br/>Faktor >1 znamená zvýšení pravděpodobnosti onemocnění, <1 znamená snížení'
+    },
+
+    xAxis: {
+        categories: faktory
+    },
+
+    yAxis: {
+        title: {
+            text: ''
+        },
+        labels: {
+            formatter: function () {
+                return this.value + '×';
+            }
+        }
+    },
+
+    tooltip: {
+        valueSuffix: '×'
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    legend: {
+        enabled: false
+    },
+
+    credits: {
+        href: 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3322931/',
+        text: 'Zdroj: studie Risk Factors for SARS among Persons without Known Contact with SARS Patients, Beijing, China'
+    },
+
+    series: [{
+        name: 'faktor',
+        data: data,
+        color: colors[4]
+    }]
+});
+
+</script>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title></title>
+</head>
+
+<body>
+
+<div style="width: 100%; height: 500px;" id="srovnani"></div>
+
+<small>Kliknutím do legendy grafu můžete zobrazit další kategorii.</small>
+
+<div style="width: 100%; height: 500px;" id="uterky"></div>
+
+<small>Kliknutím do legendy grafu můžete zobrazit další kategorii.</small>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
+
+<script type="text/javascript">
+
+var colors = ['#b80058','#ebac23','#008cf9','#006e00','#00bbad','#d163e6','#b24502','#ff9287', '#5954d6', '#00c6f8', '#878500', '#00a76c', '#bdbdbd'];
+
+var cinnosti = ['nicnedělání', 'kývání', 'třepání hlavou', 'čtení', 'chůze'];
+
+var uterka = [2.5, 2.2, 2.2, 3.2, 2.4];
+
+var chirurg = [4.1, 4.7, 5.1, 5.3, 4.2];
+
+var maska = [113, 82, 91, 66, 99];
+
+var materialy = ['Chirurgická rouška', 'Pytlík do vysavače', 'Utěrka na nádobí', 'Mix bavlny a umělého vlákna', 'Antimikrobiální povlečení polštáře', 'Plátno', 'Povlečení polštáře', 'Hedvábí', '100% bavlněné tričko', 'Šála'];
+
+var viry = [89.5, 86.0, 72.5, 70.2, 68.9, 61.7, 57.1, 54.3, 50.9, 48.9];
+
+var bakterie = [96.4, 94.4, 83.2, 74.6, 65.6, 60, 61.3, 58, 69.4, 62.3];
+
+Highcharts.chart('srovnani', {
+    chart: {
+        type: 'column'
+    },
+
+    title: {
+        text: 'Kolikrát účinnější je maska než žádná ochrana?'
+    },
+
+    subtitle: {
+        text: 'pro jejího nositele'
+    },
+
+    xAxis: {
+        categories: cinnosti
+    },
+
+    yAxis: {
+        title: {
+            text: ''
+        },
+        labels: {
+            formatter: function () {
+                return this.value + '×';
+            }
+        }
+    },
+
+    tooltip: {
+        valueSuffix: '×'
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    credits: {
+        href: 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2440799/',
+        text: 'Zdroj: studie Professional and Home-Made Face Masks Reduce Exposure to Respiratory Infections among the General Population'
+    },
+
+    series: [{
+        name: 'Utěrka',
+        data: uterka,
+        color: colors[4]
+    }, {
+        name: 'Chirurgická rouška',
+        data: chirurg,
+        color: colors[7]
+    }, {
+        name: 'Maska FFP2',
+        data: maska,
+        color: colors[0],
+        visible: false
+    }]
+});
+
+Highcharts.chart('uterky', {
+    chart: {
+        type: 'bar'
+    },
+
+    title: {
+        text: 'Jak různé materiály zachycují viry a bakterie?'
+    },
+
+    subtitle: {
+        text: ''
+    },
+
+    xAxis: {
+        categories: materialy
+    },
+
+    yAxis: {
+        title: {
+            text: ''
+        },
+        labels: {
+            formatter: function () {
+                return this.value + ' %';
+            }
+        }
+    },
+
+    tooltip: {
+        valueSuffix: ' %'
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    credits: {
+        href: 'https://www.researchgate.net/publication/258525804_Testing_the_Efficacy_of_Homemade_Masks_Would_They_Protect_in_an_Influenza_Pandemic',
+        text: 'Zdroj: studie Testing the Efficacy of Homemade Masks: Would They Protect in an Influenza Pandemic?'
+    },
+
+    series: [{
+        name: 'Viry',
+        data: viry,
+        color: colors[4]
+    }, {
+        name: 'Bakterie',
+        data: bakterie,
+        color: colors[7],
+        visible: false
+    }]
+});
+
+</script>
+</html>

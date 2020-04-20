@@ -1,0 +1,572 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title></title>
+
+<style type="text/css">
+
+#chart {
+    max-width: 100%;
+    margin: 1em auto;
+}
+
+.small {
+    min-width: 500px;
+    height: 400px;
+    margin: 1em auto;
+    float: left;
+}
+
+#chartainer {
+    max-width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.fullfrontal {
+    max-width: 100%;
+    height: 500px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="fullfrontal" id="rousky"></div>
+
+<div class="fullfrontal" id="prace"></div>
+
+<div class="fullfrontal" id="love"></div>
+
+<div class="fullfrontal" id="vlada"></div>
+
+<div class="fullfrontal" id="karantena"></div>
+
+<div class="fullfrontal" id="emoce"></div>
+
+<div class="fullfrontal" id="dobrovolnici"></div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
+
+<script type="text/javascript">
+
+var colors = ['#b80058','#ebac23','#008cf9','#006e00','#00bbad','#d163e6','#b24502','#ff9287', '#5954d6', '#00c6f8', '#878500', '#00a76c', '#bdbdbd'];
+
+var rouskycat = ["šálou nebo kapesníkem","rouškou ušitou doma","koupenou rouškou","respirátorem","nenosím nic","nechodím ven"];
+
+var rouskypop = [13, 50, 19, 11, 1, 7];
+
+var rouskymuzi = [15, 43, 21, 12, 1, 7];
+
+var rouskyzeny = [10, 57, 18, 9, 0, 7];
+
+var pracecat = ["chodím do práce","pracuji z domova","jsem doma a nemůžu pracovat","o práci jsem přišel kvůli koronaviru","nepracuji už delší dobu"];
+
+var pracepop = [40, 18, 15, 3, 24];
+
+var prace18 = [31, 17, 14, 5, 33];
+
+var prace25 = [35, 27, 17, 5, 16];
+
+var prace35 = [45, 20, 16, 2, 16];
+
+var prace45 = [55, 12, 16, 4, 13];
+
+var prace55 = [37, 14, 14, 2, 34];
+
+var prace65 = [13, 8, 5, 3, 71];
+
+var lovecat = ["budu mít vážné finanční problémy","vyjdu, ale bude to z měsíce na měsíc","něco uspořím, ale vystačí to jen na mimořádné výdaje","jsem finančně za vodou"];
+
+var lovepop = [20, 55, 21, 4];
+
+var lovefull = [22, 55, 19, 3];
+
+var lovestud = [9, 49, 37, 6];
+
+var lovemat = [10, 55, 28, 7];
+
+var lovenez = [24, 66, 10, 0];
+
+var loveduch = [19, 57, 19, 5];
+
+var lovefirm = [26, 52, 20, 2];
+
+var vladacat = ["skvěle","mám jen drobné výhrady","mám velké výhrady","vůbec to nezvládá"];
+
+var vladapop = [16, 46, 25, 11];
+
+var vladaano = [32, 55, 9, 4];
+
+var vladapir = [7, 37, 38, 15];
+
+var vladaods = [8, 37, 38, 17];
+
+var karantenacat = ["do dvou týdnů","dva týdny až měsíc","měsíc až dva měsíce","déle než dva měsíce"];
+
+var karantenapop = [3, 25, 44, 25];
+
+var karantena18 = [7, 23, 54, 16];
+
+var karantena25 = [3, 31, 44, 18];
+
+var karantena35 = [5, 25, 39, 27];
+
+var karantena45 = [3, 26, 45, 24];
+
+var karantena55 = [0, 22, 37, 33];
+
+var karantena65 = [1, 17, 48, 32];
+
+var emocecat = ["mám strach","jsem zoufalý","beru to jako výzvu","mám vztek","jsem v pohodě"];
+
+var emocepop = [37, 5, 26, 16, 39];
+
+var emocemuzi = [25, 3, 30, 19, 48];
+
+var emocezeny = [49, 7, 22, 13, 30];
+
+var dobrovolnicicat = ["pomáhám sousedům","jsem dobrovolník","šiji roušky a rozdávám je","přispívám neziskovým organizacím","ještě jinak","nijak"]
+
+var dobrovolnicipop = [19, 5, 18, 4, 16, 50];
+
+var dobrovolniciano = [18, 2, 16, 1, 13, 53];
+
+var dobrovolnicipir = [23, 5, 27, 12, 19, 40];
+
+var dobrovolniciods = [23, 1, 23, 10, 21, 37];
+
+Highcharts.chart('rousky', {
+    chart: {
+        type: 'column'
+    },
+
+    title: {
+        text: 'Zakrýváte si na veřejnosti nos a ústa? Čím?'
+    },
+
+    xAxis: {
+        categories: rouskycat
+    },
+
+    yAxis: {
+        title: {
+            text: ''
+        },
+        labels: {
+            formatter: function () {
+                return this.value + ' %';
+            }
+        }
+    },
+
+    tooltip: {
+        valueSuffix: ' %'
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    credits: {
+        enabled: false
+    },
+
+    series: [{
+        name: 'populace',
+        data: rouskypop,
+        color: '#555'
+    }, {
+        name: 'muži',
+        data: rouskymuzi,
+        color: colors[7]
+    }, {
+        name: 'ženy',
+        data: rouskyzeny,
+        color: colors[4]
+    }]
+});
+
+Highcharts.chart('prace', {
+    chart: {
+        type: 'column'
+    },
+
+    title: {
+        text: 'Jak to máte právě teď s prací?'
+    },
+
+    xAxis: {
+        categories: pracecat
+    },
+
+    yAxis: {
+        title: {
+            text: ''
+        },
+        labels: {
+            formatter: function () {
+                return this.value + ' %';
+            }
+        }
+    },
+
+    tooltip: {
+        valueSuffix: ' %'
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    credits: {
+        enabled: false
+    },
+
+    series: [{
+        name: 'populace',
+        data: pracepop,
+        color: '#555'
+    }, {
+        name: '18-24 let',
+        data: prace18,
+        color: colors[0],
+        visible: false
+    }, {
+        name: '25-34 let',
+        data: prace25,
+        color: colors[1]
+    }, {
+        name: '35-44 let',
+        data: prace35,
+        color: colors[3],
+        visible: false
+    }, {
+        name: '45-54 let',
+        data: prace45,
+        color: colors[2]
+    }, {
+        name: '55-64 let',
+        data: prace55,
+        color: colors[5],
+        visible: false
+    }, {
+        name: '65 let a více',
+        data: prace65,
+        color: colors[4],
+        visible: false
+    }]
+});
+
+Highcharts.chart('love', {
+    chart: {
+        type: 'column'
+    },
+
+    title: {
+        text: 'Jak se změní vaše finanční situace?'
+    },
+
+    xAxis: {
+        categories: lovecat
+    },
+
+    yAxis: {
+        title: {
+            text: ''
+        },
+        labels: {
+            formatter: function () {
+                return this.value + ' %';
+            }
+        }
+    },
+
+    tooltip: {
+        valueSuffix: ' %'
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    credits: {
+        enabled: false
+    },
+
+    series: [{
+        name: 'populace',
+        data: lovepop,
+        color: '#555'
+    }, {
+        name: 'zaměstnání',
+        data: lovefull,
+        color: colors[0],
+        visible: false
+    }, {
+        name: 'studium',
+        data: lovestud,
+        color: colors[1],
+        visible: false
+    }, {
+        name: 'mateřská',
+        data: lovemat,
+        color: colors[2],
+        visible: false
+    }, {
+        name: 'bez práce',
+        data: lovenez,
+        color: colors[3]
+    }, {
+        name: 'důchod',
+        data: loveduch,
+        color: colors[4],
+        visible: false
+    }, {
+        name: 'firma/OSVČ',
+        data: lovefirm,
+        color: colors[5]
+    }]
+});
+
+Highcharts.chart('vlada', {
+    chart: {
+        type: 'column'
+    },
+
+    title: {
+        text: 'Jak vláda zvládá současnou situaci?'
+    },
+
+    xAxis: {
+        categories: vladacat
+    },
+
+    yAxis: {
+        title: {
+            text: ''
+        },
+        labels: {
+            formatter: function () {
+                return this.value + ' %';
+            }
+        }
+    },
+
+    tooltip: {
+        valueSuffix: ' %'
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    credits: {
+        enabled: false
+    },
+
+    series: [{
+        name: 'populace',
+        data: vladapop,
+        color: '#555'
+    }, {
+        name: 'voliči ANO',
+        data: vladaano,
+        color: '#25265F'
+    }, {
+        name: 'voliči Pirátů',
+        data: vladapir,
+        color: '#000'
+    }, {
+        name: 'voliči ODS',
+        data: vladaods,
+        color: '#004FA2'
+    }]
+});
+
+Highcharts.chart('karantena', {
+    chart: {
+        type: 'column'
+    },
+
+    title: {
+        text: 'Jak dlouhý bude nouzový stav v současné podobě?'
+    },
+
+    xAxis: {
+        categories: karantenacat
+    },
+
+    yAxis: {
+        title: {
+            text: ''
+        },
+        labels: {
+            formatter: function () {
+                return this.value + ' %';
+            }
+        }
+    },
+
+    tooltip: {
+        valueSuffix: ' %'
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    credits: {
+        enabled: false
+    },
+
+    series: [{
+        name: 'populace',
+        data: karantenapop,
+        color: '#555'
+    }, {
+        name: '18-24 let',
+        data: karantena18,
+        color: colors[0]
+    }, {
+        name: '25-34 let',
+        data: karantena25,
+        color: colors[1],
+        visible: false
+    }, {
+        name: '35-44 let',
+        data: karantena35,
+        color: colors[3],
+        visible: false
+    }, {
+        name: '45-54 let',
+        data: karantena45,
+        color: colors[2],
+        visible: false
+    }, {
+        name: '55-64 let',
+        data: karantena55,
+        color: colors[5],
+        visible: false
+    }, {
+        name: '65 let a více',
+        data: karantena65,
+        color: colors[4]
+    }]
+});
+
+Highcharts.chart('emoce', {
+    chart: {
+        type: 'column'
+    },
+
+    title: {
+        text: 'Jakou emoci v této situaci cítíte?'
+    },
+
+    xAxis: {
+        categories: emocecat
+    },
+
+    yAxis: {
+        title: {
+            text: ''
+        },
+        labels: {
+            formatter: function () {
+                return this.value + ' %';
+            }
+        }
+    },
+
+    tooltip: {
+        valueSuffix: ' %'
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    credits: {
+        enabled: false
+    },
+
+    series: [{
+        name: 'populace',
+        data: emocepop,
+        color: '#555'
+    }, {
+        name: 'muži',
+        data: emocemuzi,
+        color: colors[7]
+    }, {
+        name: 'ženy',
+        data: emocezeny,
+        color: colors[4]
+    }]
+});
+
+Highcharts.chart('dobrovolnici', {
+    chart: {
+        type: 'column'
+    },
+
+    title: {
+        text: 'Pomohl/a jste někomu ve spojitosti s nouzovým stavem?'
+    },
+
+    xAxis: {
+        categories: dobrovolnicicat
+    },
+
+    yAxis: {
+        title: {
+            text: ''
+        },
+        labels: {
+            formatter: function () {
+                return this.value + ' %';
+            }
+        }
+    },
+
+    tooltip: {
+        valueSuffix: ' %'
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    credits: {
+        enabled: false
+    },
+
+    series: [{
+        name: 'populace',
+        data: dobrovolnicipop,
+        color: '#555'
+    }, {
+        name: 'voliči ANO',
+        data: dobrovolniciano,
+        color: '#25265F'
+    }, {
+        name: 'voliči Pirátů',
+        data: dobrovolnicipir,
+        color: '#000'
+    }, {
+        name: 'voliči ODS',
+        data: dobrovolniciods,
+        color: '#004FA2'
+    }]
+});
+
+</script>
+</html>
